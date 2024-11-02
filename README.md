@@ -1,6 +1,8 @@
-# Git Guide for Kafka, Zookeeper, Schema Registry, and Kafka UI Docker Compose Setup
+Here’s an updated `git.md` document that includes the new Kafka Connect service in your Docker Compose setup:
 
-This document provides a guide to set up a local development environment using Docker Compose for Kafka, Zookeeper, Schema Registry, and Kafka UI. 
+# Git Guide for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect Docker Compose Setup
+
+This document provides a guide to set up a local development environment using Docker Compose for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect.
 
 ## Prerequisites
 - **Docker** and **Docker Compose** should be installed on your system.
@@ -113,6 +115,35 @@ schema-registry:
   - `SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS`: Configures Kafka connection.
   - `SCHEMA_REGISTRY_LISTENERS`: Specifies the listener configuration.
 
+### 5. **Kafka Connect**
+
+The `kafka-connect` service is used to run Kafka Connect, a framework for connecting Kafka with external systems.
+
+```yaml
+kafka-connect:
+  image: debezium/connect:latest
+  depends_on:
+    - kafka
+  environment:
+    BOOTSTRAP_SERVERS: kafka:9092
+    GROUP_ID: 1
+    CONFIG_STORAGE_TOPIC: my_connect_configs
+    OFFSET_STORAGE_TOPIC: my_connect_offsets
+    STATUS_STORAGE_TOPIC: my_connect_statuses
+  ports:
+    - 8083:8083
+```
+
+- **Image**: Uses Debezium's Kafka Connect image.
+- **Dependencies**: Kafka Connect depends on Kafka.
+- **Ports**: Exposes `8083` for the Kafka Connect API.
+- **Environment Variables**:
+  - `BOOTSTRAP_SERVERS`: Points to the Kafka broker for connections.
+  - `GROUP_ID`: Defines the consumer group ID.
+  - `CONFIG_STORAGE_TOPIC`: The topic where connector configurations are stored.
+  - `OFFSET_STORAGE_TOPIC`: The topic for storing offsets.
+  - `STATUS_STORAGE_TOPIC`: The topic for storing connector statuses.
+
 ## Volumes
 
 ```yaml
@@ -134,6 +165,7 @@ Defines a volume for storing Kafka data to ensure data persistence between conta
 
 3. Access the Kafka UI at [http://localhost:8080](http://localhost:8080).
 4. The Schema Registry is available at [http://localhost:8081](http://localhost:8081).
+5. Kafka Connect can be accessed at [http://localhost:8083](http://localhost:8083).
 
 ## Stopping the Services
 
@@ -145,4 +177,4 @@ docker-compose down
 
 ## Conclusion
 
-This Docker Compose setup provides a convenient way to experiment with Kafka, Zookeeper, Schema Registry, and Kafka UI. It's useful for development and testing environments.
+This Docker Compose setup provides a convenient way to experiment with Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect. It's useful for development and testing environments.
