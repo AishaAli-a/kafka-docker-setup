@@ -1,5 +1,3 @@
-Here’s an updated `git.md` document that includes the new Kafka Connect service in your Docker Compose setup:
-
 # Git Guide for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect Docker Compose Setup
 
 This document provides a guide to set up a local development environment using Docker Compose for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect.
