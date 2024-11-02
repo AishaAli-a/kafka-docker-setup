@@ -1,4 +1,4 @@
-# Git Guide for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect Docker Compose Setup
+# Guide for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect Docker Compose Setup
 
 This document provides a guide to set up a local development environment using Docker Compose for Kafka, Zookeeper, Schema Registry, Kafka UI, and Kafka Connect.
 
